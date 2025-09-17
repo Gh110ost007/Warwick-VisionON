@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Upload Artwork{% endblock %}
+{% block head %}
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <h3 style="color: #3f7277;">Upload Artwork</h3>
+    <form method="POST" action="{{ url_for('upload_artwork') }}" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="name" >Artwork Name:</label>
+        <input type="text" id="name" name="name" class="form-control" required>
+      </div>
+
+      <div class="drop_box">
+        <header>
+          <h4>Select File here</h4>
+        </header>
+        <p>Files Supported: GIF, PNG, WEBP, JPEG</p>
+        
+        <input type="file" hidden accept="image/*" id="fileID" name="artwork" required>
+        <button type="button" class="btn choose-file" style="background-color: #3f7277;color: aliceblue;">Choose File</button>
+        
+        <img id="preview" src="#" alt="Image Preview" style="display:none; max-width:200px;">
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="request_moderation" value="yes">
+          Request Moderation Immediately
+        </label>
+      </div>
+
+      <button class="btn btn--primary" type="submit" style="background-color: #3f7277;color: white;">Upload</button>
+    </form>
+  </div>
+</div>
+
+<script>
+ 
+  const dropBox = document.querySelector(".drop_box");
+  const fileInput = document.getElementById("fileID");
+  const chooseFileBtn = document.querySelector(".choose-file");
+  const previewImg = document.getElementById("preview");
+
+  chooseFileBtn.addEventListener("click", () => {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      previewImg.src = URL.createObjectURL(file);
+      previewImg.style.display = "block";
+    }
+  });
+</script>
+{% endblock %}

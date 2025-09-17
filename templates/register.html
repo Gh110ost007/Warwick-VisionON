@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Register - VisionON!{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <form method="POST" action="{{ url_for('register') }}">
+    <h1>Register</h1>
+    <p>Join us to get the best out of the web!</p>
+    <div class="m-content">
+      <fieldset class="input-group">
+        <input type="text" class="input i-medium" name="username" placeholder="Username" required>
+      </fieldset>
+      <br>
+      <fieldset class="input-group">
+        <input type="email" class="input i-medium" name="email" placeholder="Email address" required>
+      </fieldset>
+      <br>
+      <fieldset class="input-group">
+        <input id="password-field" type="password" class="input i-medium" name="password" placeholder="Password" required>
+        <a href="#" toggle="#password-field" class="passview">
+          <i class="ri-eye-line"></i>
+        </a>
+      </fieldset>
+      <button class="btn btn--medium btn--primary" type="submit">Register</button>
+      <div class="small-text">
+        By continuing, you agree to our 
+        <a href="#"  class="link link--black">Terms of Service</a>.<br>
+        Read our <a href="#" class="link link--black">Privacy Policy</a>.
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}

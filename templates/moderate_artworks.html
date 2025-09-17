@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Moderation Dashboard{% endblock %}
+{% block head %}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+{% endblock %}
+{% block content %}
+<main class="dashboard">
+  <div class="my-5">
+    <div class="p-5 text-center bg-body-tertiary">
+      <div class="container py-5">
+        <h1 class="text-body-emphasis wow">Moderation Dashboard</h1>
+      </div>
+    </div>
+  </div>
+  <div class="b-example-divider"></div>
+  {% if artworks %}
+    <table class="invoice-table">
+      <thead>
+        <tr>
+          
+          <th>Artwork</th>
+          <th>Uploaded By</th>
+          <th>Status</th>
+          <th>Location</th>
+          <th>Votes</th>
+          <th>Archived Info</th>
+          <th>Reset Votes</th>
+          <th>Assign Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for art in artworks %}
+        <tr>
+          <td>{{ art.name }}</td>
+          <td>{{ art.artist.username }}</td>
+          <td>
+            {% if art.moderation_status == 'pending' %}
+              <p class="status status-pending">Pending</p>
+            {% elif art.moderation_status == 'moderated' %}
+              <p class="status status-paid">Moderated</p>
+            {% elif art.moderation_status == 'unmoderated' %}
+              <p class="status status-unpaid">Unmoderated</p>
+            {% else %}
+              <p class="status">{{ art.moderation_status }}</p>
+            {% endif %}
+          </td>
+          <td>{{ art.location }}</td>
+          <td class="amount">{{ art.vote_total() }}</td>
+          <td>
+            {% if art.archived %}
+              Archived by {{ art.archived_by if art.archived_by else "unknown" }}<br>
+              {% if art.archived_date %}
+                {{ art.archived_date.strftime('%Y-%m-%d %H:%M') }}
+              {% else %}
+                unknown date
+              {% endif %}
+            {% else %}
+              Not archived
+            {% endif %}
+          </td>
+         
+          <td>
+            {% if art.moderation_status == 'moderated' %}
+              <form action="{{ url_for('reset_votes', artwork_id=art.id) }}" method="post" class="reset-form">
+                <input class="in" type="text" name="reason" placeholder="Reason" required style="width:120px;">
+                <button type="submit" class="bbutton">Reset</button>
+              </form>
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          
+          <td>
+            {% if art.moderation_status == 'moderated' %}
+              <form action="{{ url_for('assign_location', artwork_id=art.id) }}" method="post" class="assign-form">
+                
+                <select name="location" required>
+                  <option class="boo" disabled {% if art.location == 'none' %}selected{% endif %}>Select Location</option>
+                  <option class="boo" value="DCSAtrium" {% if art.location == 'DCSAtrium' %}selected{% endif %}>DCSAtrium</option>
+                  <option class="boo" value="MSB" {% if art.location == 'MSB' %}selected{% endif %}>MSB</option>
+                  <option class="boo" value="Piazza" {% if art.location == 'Piazza' %}selected{% endif %}>Piazza</option>
+                </select>
+                <button type="submit" class="bbutton">Assign</button>
+              </form>
+            {% else %}
+              -
+            {% endif %}
+          </td>
+        
+          <td>
+            {% if art.moderation_status == 'pending' %}
+              <form action="{{ url_for('approve_artwork', artwork_id=art.id) }}" method="post" class="action-form" style="display:inline;">
+                <button type="submit" class="bbutton" style="margin-bottom: 0.5rem;">Approve</button>
+              </form>
+              <form action="{{ url_for('reject_artwork', artwork_id=art.id) }}" method="post" class="action-form" style="display:inline;">
+                <button type="submit" class="bbutton">Reject</button>
+              </form>
+            {% elif art.moderation_status == 'moderated' %}
+              <form action="{{ url_for('unmoderate_artwork', artwork_id=art.id) }}" method="post" class="action-form" style="display:inline;">
+                <button type="submit" style="margin-bottom: 0.5rem;" class="bbutton">Unmoderate</button>
+              </form>
+              {% if art.archived %}
+                <form action="{{ url_for('unarchive_artwork', artwork_id=art.id) }}" method="post" class="action-form" style="display:inline;">
+                  <button type="submit" class="bbutton">Unarchive</button>
+                </form>
+              {% else %}
+                <form action="{{ url_for('archive_artwork', artwork_id=art.id) }}" method="post" class="action-form" style="display:inline;">
+                  <button type="submit" class="bbutton">Archive</button>
+                </form>
+              {% endif %}
+            {% elif art.moderation_status == 'unmoderated' %}
+              <form action="{{ url_for('request_moderation', artwork_id=art.id) }}" method="post" class="action-form" style="display:inline;">
+                <button type="submit" class="bbutton">Request Moderation</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+  <div class="full-page">
+    <p class="hold">No artworks to moderate.</p>
+  </div>
+  {% endif %}
+</main>
+{% endblock %}
+

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Gallery{% endblock %}
+{% block head %}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/yay.css') }}"> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
+{% endblock %}
+{% block content %}
+
+<div class="my-5">
+  <div class="p-5 text-center bg-body-tertiary">
+    <div class="container py-5">
+      <h1 class="text-body-emphasis wow">Gallery</h1>
+    </div>
+  </div>
+</div>
+<div class="b-example-divider"></div>
+
+  <div>
+		<div class="button-group">
+			<a href="{{ url_for('gallery') }}" class="button active">All</a>
+			<a href="{{ url_for('gallery', location='DCSAtrium') }}" class="button" >DCS Atrium</a>
+		<a href="{{ url_for('gallery', location='MSB') }}" class="button" >MSB</a>
+			<a href="{{ url_for('gallery', location='Piazza') }}" class="button" >Piazza</a>
+		</div>
+  </div>
+ 
+  {% if artworks|length == 0 %}
+  <div class="full-page">
+    <p class="hold">No artworks found for this location.</p>
+  </div>
+   
+  {% else %}
+   
+    <div class="card__container">
+      {% for art in artworks %}
+        <article class="card__article">
+          <img src="{{ url_for('artwork_image', artwork_id=art.id) }}" alt="{{ art.name }}" style="max-width:300px;">
+          <div class="card__data-container" style="display: flex; justify-content: space-between; align-items: center;">
+         
+            <div class="card__data">
+              <span class="card__description" style="color:#3f7277;font-weight: bold;">Votes: {{ art.vote_total() }}</span>
+              <h2 class="card__title">{{ art.name }}</h2>
+              <span class="card__description">By: {{ art.artist.username }}</span>
+              <form action="{{ url_for('vote_artwork', artwork_id=art.id, action='up') }}" method="post" style="display:inline;">
+                <button class="card__button">Upvote</button>
+              </form>
+              <form action="{{ url_for('vote_artwork', artwork_id=art.id, action='down') }}" method="post" style="display:inline;">
+                <button class="card__button">Downvote</button>
+              </form>
+            </div>
+       
+            <div class="card__qr" style="margin-left: auto;">
+              {% if art.qr_code %}
+                <img src="{{ url_for('static', filename='qr_codes/' ~ art.qr_code) }}" alt="QR Code for {{ art.name }}" style="max-width: 100px;">
+              {% else %}
+                <p style="font-size: 0.8rem; color: #666;">No QR Code</p>
+              {% endif %}
+            </div>
+          </div>
+          
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+

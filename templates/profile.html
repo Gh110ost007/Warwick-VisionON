@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block head %}
+ 
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+{% block content %}
+<div class="my-5">
+  <div class="p-5 text-center bg-body-tertiary">
+    <div class="container py-5">
+      <h1 class="text-body-emphasis wow">Profile</h1>
+      <p class="col-lg-8 mx-auto lead">
+        Manage your personal details and account security.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row gutters">
+  
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="account-settings">
+            <div class="user-profile">
+              <div class="user-avatar">
+                <img src="{{ current_user.profile_photo_url or url_for('static', filename='images/default_avatar.png') }}"
+                     alt="Profile Photo"
+                     class="rounded"
+                     style="width:90px; height:90px;">
+              </div>
+              <h5 class="user-name">
+                {{ current_user.first_name or 'First Name' }} {{ current_user.last_name or 'Last Name' }}
+              </h5>
+              <h6 class="user-email">{{ current_user.email }}</h6>
+            </div>
+            <div class="about">
+              <h5>About</h5>
+              <p>{{ current_user.about or "Your about information goes here." }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+        <div class="card-body">
+      
+          <form method="POST" action="{{ url_for('profile') }}" enctype="multipart/form-data">
+      
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h6 class="mb-2 text-primary" style="color: #05555c !important;">Personal Details</h6>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" class="form-control" id="firstName" name="first_name" value="{{ current_user.first_name or '' }}" placeholder="Enter First Name">
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" name="last_name" value="{{ current_user.last_name or '' }}" placeholder="Enter Last Name">
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="text" class="form-control" id="phone" name="phone" value="{{ current_user.phone or '' }}" placeholder="Enter Phone Number">
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="age">Age</label>
+                  <input type="number" class="form-control" id="age" name="age" value="{{ current_user.age or '' }}" placeholder="Enter Age">
+                </div>
+              </div>
+            </div>
+           
+            <div class="row gutters mt-4">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="form-group">
+                  <label for="profilePhoto">Change Profile Photo</label>
+                  <input type="file" class="form-control" id="profilePhoto" name="profile_photo" accept="image/*">
+                </div>
+              </div>
+            </div>
+            
+            <div class="row gutters mt-4">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="text-right">
+                  <button type="button" id="cancel" class="btn btn-secondary" style="background-color: #05555c;color: aliceblue;border: none;">Cancel</button>
+                  <button type="submit" id="update" class="btn btn-primary" style="background-color: #05555c;color: aliceblue;border: none;">Update</button>
+                </div>
+              </div>
+            </div>
+          </form>
+       
+          <div class="mt-4">
+            <form method="POST" action="{{ url_for('send_reset_password') }}">
+              <button type="submit" class="btn btn-warning" style="margin-top: 0.5rem;background-color: #05555c;color: aliceblue;border: none;">Reset Password</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

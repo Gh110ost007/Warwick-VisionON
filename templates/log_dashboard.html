@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Transaction Logs{% endblock %}
+{% block head %}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+{% endblock %}
+{% block content %}
+
+  <div class="my-5">
+    <div class="p-5 text-center bg-body-tertiary">
+      <div class="container py-5">
+        <h1 class="text-body-emphasis wow">Log Dashboard</h1>
+      </div>
+    </div>
+  </div>
+
+  {% if logs|length == 0 %}
+  <div class="full-page">
+    <p class="hold">No transaction logs found.</p>
+  </div>
+{% else %}
+  <div class="table-wrapper">
+    <table class="invoice-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Event Type</th>
+          <th>Description</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in logs %}
+        <tr>
+          <td><a href="#">{{ log.id }}</a></td>
+          <td>{{ log.event_type }}</td>
+          <td>{{ log.description }}</td>
+          <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+
+{% endblock %}

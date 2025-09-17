@@ -1,0 +1,140 @@
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    
+    color: #4f546c !important;
+    font-size: 0.9rem;
+    background-color: #f9fbff;
+  }
+
+.boo{
+  color: #05555c;
+  border: none;
+  font-style:  'Raleway', sans-serif !important;
+}
+  
+  .in {
+    appearance: none;
+    border: none;
+    outline: none;
+    border-bottom: .2em solid #3f7277;
+    background: rgba(#3f7277, .2);
+    border-radius: .2em .2em 0 0;
+    padding: .4em;
+    color: #3f7277;
+    background-color: transparent;
+  }
+
+  .bbutton {
+    background-color: #3f7277;
+    border: none;
+    color: white;
+    padding:8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size:0.8rem;
+  }
+  .hold{
+    font-style:  'Raleway', sans-serif !important;
+    font-weight: 500;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    height: 20vh;     
+    color: #3f7277;
+  }
+
+  .wow{
+    font-size: 4rem;
+    color: #05555c !important;
+  }
+
+  table {
+    border-collapse: collapse;
+    box-shadow: 0 5px 10px #e1e5ee;
+    background-color: white;
+    text-align: left;
+    overflow: hidden;
+    
+  }
+  table thead {
+    box-shadow: 0 5px 10px #e1e5ee;
+  }
+  table th {
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.7rem;
+    font-weight: 900;
+  }
+  table td {
+    padding: 1rem 2rem;
+  }
+  table a {
+    text-decoration: none;
+    color: #3f7277;
+  }
+  table .status {
+    border-radius: 0.2rem;
+    background-color: red;
+    padding: 0.2rem 1rem;
+    text-align: center;
+  }
+  table .status-pending {
+    background-color: #fff0c2;
+    color: #a68b00;
+  }
+  table .status-paid {
+    background-color: #c8e6c9;
+    color: #388e3c;
+  }
+  table .status-unpaid {
+    background-color: #ffcdd2;
+    color: #c62828;
+  }
+  table .amount {
+    text-align: right;
+  }
+  table tr:nth-child(even) {
+    background-color: #f4f6fb;
+  }
+  
+  .invoice-table {
+    width: 100%;
+  }
+  
+  
+  .invoice-table th,
+  .invoice-table td {
+    border-bottom: 1px solid #e1e5ee;
+  }
+  
+
+  .invoice-table .status {
+    display: inline-block; 
+    margin: 0;            
+    padding: 0.25rem 0.5rem; 
+    border-radius: 0.2rem;
+    text-align: center;
+  }
+  
+
+
+  .invoice-table .amount {
+    text-align: center;
+  }
+  
+ 
+  .reset-form input,
+  .reset-form button,
+  .assign-form select,
+  .assign-form button {
+    margin-bottom: 0.5rem;
+  }

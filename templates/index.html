@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}VisionON - Home{% endblock %}
+
+{% block head %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/img/favicon.png') }}" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <!--==================== HOME ====================-->
+    <section class="home" id="home">
+        <img src="{{ url_for('static', filename='images/brobg.jpeg') }}" alt="" class="home__img">
+        <div class="home__container container grid">
+            <div class="home__data">
+                <span class="home__data-subtitle">Discover your favourite art</span>
+                <h1 class="home__data-title" >
+                  Explore Our <br> <b>Amazing <br> Gallery</b>
+                </h1>
+                <a href="{{ url_for('gallery') }}" class="button" style="text-decoration: none;background-color:#05555c ;color: aliceblue;border: none;margin-right: 1rem;">Gallery</a>
+            </div>
+        </div>
+    </section>
+
+    <!--==================== ABOUT ====================-->
+    <section class="about section" id="about">
+        <div class="about__container container grid">
+            <div class="about__data">
+                <h2 class="section__title about__title">More Information <br> About Our Gallery</h2>
+                <p class="about__description">
+                  Discover VisionON – our vibrant digital gallery where creativity meets technology.
+                  Whether you're an art enthusiast or an aspiring pixel artist, be guided through an unforgettable journey of digital creativity.
+                </p>
+               
+            </div>
+            <div class="about__img">
+                <div class="about__img-overlay">
+                    <img src="{{ url_for('static', filename='images/about1.jpg') }}" alt="" class="about__img-one">
+                </div>
+                <div class="about__img-overlay">
+                    <img src="{{ url_for('static', filename='images/about2.jpg') }}" alt="" class="about__img-two">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+  
+    <section class="discover section" id="discover">
+        <h2 class="section__title">Discover our most <br> artistic pieces</h2>
+        <div class="discover__container container swiper-container">
+            <div class="swiper-wrapper">
+      
+                <div class="discover__card swiper-slide">
+                    <img src="{{ url_for('static', filename='images/discover.jpg') }}" alt="" class="discover__img">
+                    <div class="discover__data">
+                        <h2 class="discover__title">Star Wars</h2>
+                    </div>
+                </div>
+
+                <div class="discover__card swiper-slide">
+                    <img src="{{ url_for('static', filename='images/discover1.webp') }}" alt="" class="discover__img">
+                    <div class="discover__data">
+                        <h2 class="discover__title">Batman</h2>
+                    </div>
+                </div>
+
+                <div class="discover__card swiper-slide">
+                    <img src="{{ url_for('static', filename='images/dis.webp') }}" alt="" class="discover__img">
+                    <div class="discover__data">
+                        <h2 class="discover__title">Sherlock</h2>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+
+    <section class="experience section">
+        <h2 class="section__title">With Our Experience <br> We Will Serve You</h2>
+        <div class="experience__container container grid">
+            <div class="experience__content grid">
+                <div class="experience__data">
+                    <h2 class="experience__number">5+</h2>
+                    <span class="experience__description">Years Of <br> Experience</span>
+                </div>
+                <div class="experience__data">
+                    <h2 class="experience__number">75+</h2>
+                    <span class="experience__description">Pixel <br> Artists</span>
+                </div>
+                <div class="experience__data">
+                    <h2 class="experience__number">650+</h2>
+                    <span class="experience__description">Art <br> Pieces</span>
+                </div>
+            </div>
+            <div class="experience__img grid">
+                <div class="experience__overlay">
+                    <img src="{{ url_for('static', filename='images/experience1.webp') }}" alt="" class="experience__img-one">
+                </div>
+                <div class="experience__overlay">
+                    <img src="{{ url_for('static', filename='images/experience2.jpg') }}" alt="" class="experience__img-two">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="sponsor section">
+        <div class="sponsor__container container grid">
+            <div class="sponsor__content">
+                <img src="{{ url_for('static', filename='images/sponsors1.png') }}" alt="" class="sponsor__img">
+            </div>
+            <div class="sponsor__content">
+                <img src="{{ url_for('static', filename='images/sponsors2.png') }}" alt="" class="sponsor__img">
+            </div>
+            <div class="sponsor__content">
+                <img src="{{ url_for('static', filename='images/sponsors3.png') }}" alt="" class="sponsor__img">
+            </div>
+            <div class="sponsor__content">
+                <img src="{{ url_for('static', filename='images/sponsors4.png') }}" alt="" class="sponsor__img">
+            </div>
+            <div class="sponsor__content">
+                <img src="{{ url_for('static', filename='images/sponsors5.png') }}" alt="" class="sponsor__img">
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line scrollup__icon"></i>
+    </a>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scrollreveal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/swiper-bundle.min.js') }}"></script>
+{% endblock %}
