@@ -164,53 +164,8 @@ A comprehensive demo video (`demo.mp4`) is included showcasing:
 - **VoteResetLog**: Audit trail for vote resets
 - **TransactionLog**: System activity logging
 
-## Coursework Compliance
-
-This project fully implements the CS139 Web Application Development coursework requirements:
-
-### Core Requirements (50% of marks)
-
-- Complete user management system
-- Artwork upload and moderation workflow
-- Voting and location assignment
-- Public gallery access
-- Role-based access control
-
-### Technical Implementation (35% of marks)
-
-- Efficient database queries with SQLAlchemy
-- Secure password handling
-- Modern web technologies (Flask, Jinja2)
-- Responsive design and accessibility
-- Comprehensive error handling
-
-### Additional Features (10% bonus marks)
-
-- Email verification system
-- Profile photo uploads
-- Transaction logging
-- QR code generation
-- Modern UI/UX design
-
-### Documentation (5% of marks)
-
-- Comprehensive README
-- Code comments and documentation
-- Demo video with all required scenarios
-
-## Contributing
 
 This is a coursework project for CS139 Web Application Development. While contributions are welcome, please note this is an academic project.
-
-## License
-
-This project is created for educational purposes as part of the CS139 coursework at the University of Warwick.
-
-## Author
-
-**Adi** - CS139 Student
-
-- GitHub: [@Gh110ost007](https://github.com/Gh110ost007)
 
 ## Acknowledgments
 
