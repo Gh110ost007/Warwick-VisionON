@@ -3,7 +3,6 @@
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1.0-green.svg)](https://flask.palletsprojects.com/)
 [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0.38-red.svg)](https://sqlalchemy.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A comprehensive digital art gallery platform designed for pixel artists and art enthusiasts, featuring role-based access control, artwork moderation, and community voting systems.
 
