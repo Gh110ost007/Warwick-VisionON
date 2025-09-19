@@ -10,22 +10,34 @@ from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
-app.config['MAIL_SUPPRESS_SEND'] = False
+
+# Configuration for Heroku deployment
+if os.environ.get('DATABASE_URL'):
+    # Heroku configuration
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-here')
+    app.config['MAIL_SUPPRESS_SEND'] = True  # Disable email on Heroku for demo
+else:
+    # Local configuration
+    app.config.from_pyfile('config.py')
+    app.config['MAIL_SUPPRESS_SEND'] = False
+
 db.init_app(app)  # Initialize the database with the app
 UPLOAD_FOLDER = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 mail = Mail(app)
 s = URLSafeTimedSerializer(app.secret_key)
 
-app.config.update(
-    MAIL_SERVER='smtp.dcs.warwick.ac.uk',
-    MAIL_PORT=25,  # Check your uni’s port; sometimes it's 25
-    MAIL_USE_TLS=False,
-    MAIL_USERNAME='',
-    MAIL_PASSWORD='',
-    MAIL_DEFAULT_SENDER=("NOREPLY", f"{os.getlogin()}@dcs.warwick.ac.uk")
-)
+# Email configuration
+if not os.environ.get('DATABASE_URL'):  # Only for local development
+    app.config.update(
+        MAIL_SERVER='smtp.dcs.warwick.ac.uk',
+        MAIL_PORT=25,
+        MAIL_USE_TLS=False,
+        MAIL_USERNAME='',
+        MAIL_PASSWORD='',
+        MAIL_DEFAULT_SENDER=("NOREPLY", f"{os.getlogin()}@dcs.warwick.ac.uk")
+    )
 
 
 
@@ -675,6 +687,20 @@ def assign_location(artwork_id):
     flash("Location assigned successfully.", "success")
     return redirect(url_for('moderate_artworks'))
 
+
+# Initialize database tables
+with app.app_context():
+    db.create_all()
+    
+    # Create superuser if it doesn't exist
+    if not User.query.filter_by(is_superuser=True).first():
+        superuser = User(username="admin", email="admin@example.com")
+        superuser.set_password("admin")
+        superuser.is_superuser = True
+        superuser.email_verified = True
+        db.session.add(superuser)
+        db.session.commit()
+        print("Superuser created!")
 
 if __name__ == '__main__':
     app.run(debug=True)
